@@ -177,3 +177,5 @@ CONF_SUPPORTED_DEVICES = 'supported_devices'
 ATTR_ENABLED = 'enabled'
 
 ERROR_SHUTDOWN = "Connector is closed."
+
+DHCP_LEASE_INFO_HOST = 'http://dhcp-lease-parser.local'
