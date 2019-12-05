@@ -107,19 +107,10 @@ class EdgeOSWebAPI:
 
         try:
             if self.is_initialized:
-                get_req_url = self.get_edgeos_api_endpoint(EDGEOS_API_GET)
+                result_json = await self.async_get(DHCP_LEASE_INFO_HOST)
 
-                result_json = await self.async_get(get_req_url)
-
-                if result_json is not None and RESPONSE_SUCCESS_KEY in result_json:
-                    success_key = str(result_json.get(RESPONSE_SUCCESS_KEY, '')).lower()
-
-                    if success_key == TRUE_STR:
-                        if EDGEOS_API_GET.upper() in result_json:
-                            result = result_json.get(EDGEOS_API_GET.upper(), {})
-                    else:
-                        error_message = result_json[RESPONSE_ERROR_KEY]
-                        _LOGGER.error(f'Failed, Error: {error_message}')
+                if result_json is not None and SERVICE in result_json:
+                    result = result_json
                 else:
                     _LOGGER.error('Invalid response, not contain success status')
             else:
